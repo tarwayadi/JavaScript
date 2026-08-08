@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM | chai aur code</title>
+</head>
+<body style="background-color:black; color:#fff">
+    <div class="parent">
+        <div class="day">Monday</div>
+        <div class="day">tuesday</div>
+        <div class="day">wednesday</div>
+        <div class="day">thursday</div>
+
+
+    </div>
+    
+</body>
+<script>
+    const parent = document.querySelector('.parent')
+    console.log(parent);
+        /*
+           output:<div class="parent">
+        <div class="day">Monday</div>
+        <div class="day">tuesday</div>
+        <div class="day">wednesday</div>
+        <div class="day">thursday</div>
+
+
+         </div>
+        
+        */
+    console.log(parent.children);
+    /* output: HTMLCollection(4)
+    [div.day,div.day,div.day,div.day]
+    0 : div.day
+    1 : div.day
+    2 : div.day
+    3 : div.day
+      length:4
+
+      ......many more things see in the console
+
+
+    */
+   console.log(parent.children[1]);//<div class = "day">tuesday</div>
+   console.log(parent.children[1].innerHTML)//tuesday
+
+   console.log("\n")
+
+   for(let i=0 ; i<parent.children.length;i++)
+   {
+       console.log(parent.children[i].innerHTML)
+   }
+   //Monday,Tuesday,wednesday,thursday
+
+   parent.children[1].style.color = "orange"//color of tuesday is changed to orange
+   console.log(parent.firstElementChild)
+   //<div class="day">Monday</div>
+
+   console.log(parent.lastElementChild)
+   //<div class = "day"> thursday</div>
+
+   const dayOne = document.querySelector('.day')
+   console.log(dayOne)
+   console.log(dayOne.parentElement)
+/*  <div class="parent">
+        <div class="day">Monday</div>
+        <div class="day">tuesday</div>
+        <div class="day">wednesday</div>
+        <div class="day">thursday</div>
+
+
+    </div>
+
+
+
+*/
+   console.log(dayOne.nextElementSibling)
+   //<div class="day" style="color:orange;">tuesday</div>
+
+   console.log("NODES : ", parent.childNodes);// this will give us the NodeList but with 9 elements 
+   //because behind the scene it has created complex tree structure and 
+   //it counts break, text, every little thing as a individual node
+
+
+   
+
+
+
+</script>
+</html>

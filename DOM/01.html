@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM learning</title>
+    <style>
+        .bg-black{
+            background-color: #212121;
+            color:#fff;
+        }
+    </style>
+</head>
+<body class = "bg-black">
+    <div >
+        <h1 id = "title" class=""heading>DOM learning on chai aur code
+            <span style="display:none">
+                test text
+            </span>
+        </h1>
+        <p>Hi, I am Aditi Anand</p>
+    </div>
+    
+</body>
+</html>
+
+<!--in console 
+   document.getElementById('title') 
+   //<h1 id = "title" class=""heading>DOM learning on chai aur code</h1>
+
+   document.getElementById('title').id
+   //'title'
+
+   document.getElementById('title').class
+   //undefined
+
+   document.getElementById('title'.className)
+   //heading
+
+   //we can also find the attribute
+   document.getElementById('title').getAttribute('id')
+   //'title'
+
+   document.getElementById('title').getAttribute('class')
+   //heading
+
+   document.getElementById('title').setAttribute('class','test')
+   // it will set class as test 
+   
+   const title = document.getElementById('title')
+    // now we have tile variable we can easily get our work done
+
+   title.style.backgroundcolor = 'green'
+   //it will change the color to green
+
+   title.style.padding = "15px"
+   title.style.borderRadius = "15px"
+   
+
+   // how to extract content
+
+   title.textcontent
+   //DOM learning on chai aur code
+
+   title.innerText
+   //DOM learning on chai aur code
+
+   title.innerHTML
+   //DOM learning on chai aur code
+
+
+
+   *** difference between innerContext and textContent:
+   innerText returns only the text that is visible on the page and respects
+    CSS styling such as display: none. textContent returns all the 
+    text inside an element, including hidden text, and is generally
+     faster because it doesn't consider styling.
+
+
+     //after adding <span>..</span>
+
+     title.innerText
+     //'DOM learning on chai aur code'
+
+     title.textContent
+     //'DOM learning on chai aur code test text'
+
+     title.innerHTML
+     //DOM learning on chai aur code
+            <span style="display:none">
+                test text
+            </span>
+
+    
+
+
+
+   
+   -->
+
+
+   
+
+

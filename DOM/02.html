@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM learning</title>
+    <style>
+        .bg-black{
+            background-color: #212121;
+            color:#fff;
+        }
+    </style>
+</head>
+<body class = "bg-black">
+    <div >
+        <h1 id = "title" class=""heading>DOM learning on chai aur code
+            <span style="display:none">
+                test text
+            </span>
+        </h1>
+        <h2>hello,Aditi</h2>
+        <h2>hello,Aditi</h2>
+        <h2>hello,Aditi</h2>
+        <p>Hi, I am Aditi Anand</p>
+        <ul>
+            <li  class="list-item">one</li>
+            <li  class="list-item">two</li>
+            <li  class="list-item">three</li>
+            <li  class="list-item">four</li>
+        </ul>
+    </div>
+    
+</body>
+</html>
+<!--
+
+    document.getElementsByClassName('heading')
+    //HTMLCollection [...........]
+
+    //*****selecting individual element*****//
+
+    document.querrySelector('h1')
+    // it will give first h1
+    <h1 id = "title" class=""heading>DOM learning on chai aur code
+            <span style="display:none">
+                test text
+            </span>
+        </h1>
+
+    document.querrySelector('h2')
+    //it will select first h2
+    //<h2>hello,Aditi</h2>
+
+    document.querrySelector('#title')
+    //<h1 id = "title" class=""heading>DOM learning on chai aur code
+            <span style="display:none">
+                test text
+            </span>
+        </h1>
+
+
+    document.querrySelector('.heading')
+    //<h1 id = "title" class=""heading>DOM learning on chai aur code
+            <span style="display:none">
+                test text
+            </span>
+        </h1>
+
+
+   //inside the parenthesis of querrySelector
+      we can write any type of CSS-selector we need
+
+
+    document.querrySelector('ul')
+    //<ul>
+            <li>one</li>
+            <li>two</li>
+            <li>three</li>
+        </ul>
+
+     const myul=document.querrySelector('ul')
+
+     myul.querrySelector('li')
+     //     <li>one</li>
+            <li>two</li>
+            <li>three</li>
+
+    const turnGreen = myul.querrySelector('li')
+
+     turnGreen.style.backgroundColor = "green" 
+     turnGreen.style.padding = "15px" 
+
+     turnGreen.innerText
+     //'one'
+
+     turnGreen.innerText = "five"
+     //'five'
+
+
+     //****Selecting more than one element*****//
+
+     document.querrySelectorAll('li')
+     //NodeList(3) [li,li,li]
+
+     ***NodeList and HTMLCollection are not pure array
+
+
+     const tempLiList = document.querySelectorAll('Li')
+
+     tempLiList.style.color = 'green'
+     //Error
+
+     tempLiList[0].style.color = 'green'
+     //'green'
+
+     ****even if the NodeList has one element we have to specify
+         the index in [] in order for stylling to work
+
+    tempLiList.forEach(function(l){
+       l.style.backgroundcolor = 'green'
+    })
+
+    //it will change the color of list to green
+
+    if we need to use arrays function on NodeList first we have to convert 
+    it into array then we can use all the array functions
+
+
+    // add one more element in the list and class="list-item"
+
+
+    document.getElementsByClassName('list-item')
+    //HTMLCollection(4) [li.list-item,li.list-item,li.list-item
+    li.list-item]
+    ........many things written
+
+
+     there is no direct loop in HTMLCollection
+     we need to convert it into array
+
+     const tempClassList = document.getElementsByClassName['list-item']
+
+     Array.from(tempClassList)
+     //converted to Array
+
+     const myConvertedArray = Array.from(tempclassList)
+
+     myConvertedArray.forEach(function(li){
+        li.style.color = 'orange'
+     })
+
+     // color of elements of the list has been changed to orange
+
+-->
