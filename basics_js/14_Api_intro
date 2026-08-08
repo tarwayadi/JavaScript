@@ -1,0 +1,52 @@
+//understanding object de-structure
+/**
+ * Object destructuring is a modern ES6 feature that allows you to extract values from objects easily into variables.
+ */
+
+const course = {
+    coursename: "js-in-hindi",
+    price: "zero",
+    courseInstructor : "hitesh"
+}
+//method 1
+const{courseInstructor} = course
+console.log(courseInstructor)
+//method 2
+const{courseInstructor : instructor} = course
+console.log(instructor)
+// both method will have same output
+
+
+/**
+ * API : (Application programming interface)
+ *    is a way for two software applications to communicate with each other
+ *    --->In simple words Api acts like a waiter between the client and the server
+ 
+ */
+
+/**
+ * JSON :(JavaScript Object Notation)
+ * It is a lightweight format used to :
+ * --->(A). store data
+ * --->(B). exchange data between client and server
+ * --->(C). send Api reference
+ */
+
+//Api in format of object
+   //{
+   //    "Aname" : "Aditi",
+    //     "prizeC" :"globe"
+    //}
+
+//Api in format of array
+/*[
+    {},
+    {},
+    {}.
+]*/
+
+/**
+ * important name to learn 
+ * randomuserme
+ * tool to understand Api is  JSONformator
+ */
