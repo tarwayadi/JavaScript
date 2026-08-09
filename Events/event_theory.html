@@ -1,0 +1,168 @@
+<!--
+  ##  what is an Event?
+    An event is something that happens in the browser
+    that JavaScript can detect and respond to.
+    
+    for Example:
+    User clicks a button -click
+    User moves the mouse -mousemove
+    User presses a keyboard key -keydown
+    User submits a form -submit
+    Page finishes loading -load
+
+
+    for example::::
+    document.getElementById('owl').addEventListener('click', function(e) {
+    console.log("Owl clicked");
+});
+
+  in this code we are telling the browser -- if somone clicks the owl image, run 
+  this function
+
+
+
+  # what is the event Object?
+
+     in the code:
+     function(e) {
+    console.log(e);
+}
+
+the  e is the event object. the broser automatically gives your function
+information about what happened
+
+for example:
+
+ owl.addEventListener("click", function(e) {
+    console.log(e.type);
+});
+
+it will give the output : click
+
+we can also use:  console.log(e.target);
+this tells us which element actually triggered the event.
+
+
+
+-->
+
+
+
+<!--
+
+
+   ## Event propagation
+
+   suppose your HTML is:
+   <div id="parent">
+    <button id="child">Click Me</button>
+   </div>
+
+   The DOM looks like:
+        parent
+          │
+          ↓
+        button
+
+Now suppose you click the button.The click doesn't exist only on the button.
+The event travels through the DOM hierarchy.This movement is called event propagation.
+
+There are three stages:
+1. Capturing Phase
+2. Target Phase
+3. Bubbling Phase
+
+
+1. CAPTURING PHASE
+
+The event travels from the top of the DOM toward the element that was clicked.
+Imagine
+document
+   ↓
+ html
+   ↓
+ body
+   ↓
+ div (parent)
+   ↓
+ button (target)
+
+ 
+ 2.TARGET PHASE
+
+   Eventually the event reaches the element that was actually clicked.
+   button ← TARGET
+
+
+3. BUBBLING PHASE
+
+  After reaching the target, the event travels back upward through its parents.
+
+
+  //** so the complete journey is :
+
+               CAPTURING
+                 |
+document - html - body - parent
+                            |
+                          button
+                              |
+                           TARGET
+                              |
+parent - body -html - document
+             BUBBLING
+
+
+addEventListener("click", function(e) {
+    console.log(e);
+}, false);
+
+
+
+addEventListener("click", function(e) {
+    console.log(e);
+}, false);
+
+// what does false mean?
+
+the third parameter controls whether you are listening during 
+the capturing phase or the bubbling phase
+
+FALSE:
+means the listener works during the bubbling phase
+
+TRUE:
+means the listener works during the capturing phase
+
+-->
+
+
+<!--
+   let us understand with real life analogy
+   Imagine you're in a family:
+   Grandparent
+     ↓
+   Parent
+     ↓
+   Child
+
+   The child says:"I got a message!"
+
+   During capturing, the message travels:
+   Grandparent
+     ↓
+   Parent
+     ↓
+   Child
+
+   During bubbling, it travels back:
+   Child
+    ↑
+   Parent
+    ↑
+   Grandparent
+
+   That's essentially how event propagation works through the DOM.
+
+
+-->
