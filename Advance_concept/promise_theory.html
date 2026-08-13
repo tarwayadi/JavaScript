@@ -1,0 +1,715 @@
+<!--
+   A promise object represents the eventual completion 
+   (or failure) of an asynchronous operation and its resulting values
+
+   ### We need Promises in JavaScript mainly because some operations take 
+   time to finish, and we don't want JavaScript to stop everything while waiting.
+
+   Think of this example 🍕 You order a pizza:
+
+    You → Restaurant: "Give me a pizza"
+                ↓
+            Preparing...
+                ↓
+            Pizza ready
+
+    You don't stand inside the kitchen waiting. You continue doing other things and get the pizza when it's ready.
+
+        JavaScript has the same problem with things like:
+
+        Getting data from an API
+        Fetching data from a server
+        Reading files
+        Database operations
+        Timers and other asynchronous operations
+
+        A Promise represents the result that will be available later.
+
+Without a Promise
+Imagine JavaScript has to request data from a server:
+    JavaScript
+        ↓
+    Request data
+        ↓
+    Wait........
+        ↓
+    Response
+        ↓
+    Continue
+
+    If JavaScript had to completely stop and wait for every slow operation,
+     your application would become unresponsive.
+
+
+
+-->
+<!--
+    A Promise is in one of these states:
+   1. pending: initial state, neither fulfilled nor rejected.
+   2. fulfilled: meaning that the operation was completed successfully.
+   3. rejected: meaning that the operation failed.
+
+     
+
+     
+
+-->
+   <!--
+        PROMISE GIVES US THE CLEAN STRUCTURE
+
+
+                Asynchronous operation
+                        ↓
+                    Promise
+                    ↙     ↘
+                Success    Failure
+                ↓          ↓
+                .then()    .catch()
+
+   -->
+
+   <!--
+
+        let's understand .then() and .catch()
+        #####################################
+    ***.then() and .catch() are methods of a Promise.
+
+       They are used to handle the result of an asynchronous operation.
+
+                 Promise
+                    |
+             ┌──────┴──────┐
+             ↓             ↓
+          Success        Failure
+             ↓             ↓
+          .then()       .catch()
+
+In simple words:
+
+.then() → "What should I do if the Promise succeeds?"
+
+.catch() → "What should I do if the Promise fails?"
+
+1. .then()
+
+    What is .then()?
+
+    .then() is used to handle the successful result of a Promise.
+
+    promise.then((result) => {
+        console.log(result);
+    });
+
+    When the Promise is fulfilled, the callback inside .then() is executed.
+
+    Example
+
+    const promise = new Promise((resolve, reject) => {
+        resolve("Task completed successfully");
+    });
+
+    promise.then((result) => {
+        console.log(result);
+    });
+
+    Output:
+
+    Task completed successfully
+
+    How does it work?
+
+    resolve("Hello");
+
+    sends "Hello" to:
+
+    .then((result) => {
+        console.log(result);
+    });
+
+    So:
+
+    resolve(value)
+        ↓
+    .then(value)
+
+    Whatever value is passed to resolve() becomes the value received by .then().
+
+2. .catch()
+
+    What is .catch()?
+
+    .catch() is used to handle a rejected Promise or an error.
+
+    promise.catch((error) => {
+        console.log(error);
+    });
+
+    If the Promise is rejected, the callback inside .catch() is executed.
+
+    Example
+
+    const promise = new Promise((resolve, reject) => {
+        reject("Something went wrong");
+    });
+
+    promise
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+    Output:
+
+    Something went wrong
+
+    The connection is:
+
+    reject(error)
+        ↓
+    .catch(error)
+
+    Whatever value is passed to reject() becomes the value received by .catch().
+
+3. .then() and .catch() Together
+
+    Usually, .then() and .catch() are used together.
+
+    promise
+        .then((result) => {
+            console.log("Success:", result);
+        })
+        .catch((error) => {
+            console.log("Error:", error);
+        });
+
+    Think of it as:
+
+                    Promise
+                    |
+            ┌────────┴────────┐
+            ↓                 ↓
+        Success             Failure
+            ↓                 ↓
+        .then()            .catch()
+            ↓                 ↓
+    Handle the result   Handle the error
+
+4. .then() Receives the Result
+
+        Whatever value is passed to resolve() is received by .then().
+
+        const promise = new Promise((resolve, reject) => {
+            resolve("Aditi");
+        });
+
+        promise.then((name) => {
+            console.log(name);
+        });
+
+        Output:
+
+        Aditi
+
+        Flow:
+
+        resolve("Aditi")
+            ↓
+        .then((name) => ...)
+            ↓
+        name = "Aditi"
+
+5. .catch() Receives the Error
+
+    Whatever value is passed to reject() is received by .catch().
+
+    const promise = new Promise((resolve, reject) => {
+        reject("Server Error");
+    });
+
+    promise.catch((error) => {
+        console.log(error);
+    });
+
+    Output:
+
+    Server Error
+
+    Flow:
+
+    reject("Server Error")
+        ↓
+    .catch((error) => ...)
+        ↓
+    error = "Server Error"
+
+6. Promise Chaining
+
+    One of the most important features of .then() is Promise chaining.
+
+    .then() returns a Promise, so another .then() can be attached to it.
+
+    Promise.resolve(10)
+        .then((num) => {
+            return num * 2;
+        })
+        .then((num) => {
+            return num + 5;
+        })
+        .then((num) => {
+            console.log(num);
+        });
+
+    Output:
+
+    25
+
+    Flow:
+
+    10
+    ↓
+    × 2
+    ↓
+    20
+    ↓
+    + 5
+    ↓
+    25
+
+7. Why Does Promise Chaining Work?
+
+    When a .then() callback returns a value, that value becomes the result of a new Promise returned by .then().
+
+    Example:
+
+    Promise.resolve(10)
+        .then((num) => {
+            return num * 2;
+        })
+        .then((result) => {
+            console.log(result);
+        });
+
+    Flow:
+
+    Promise
+    ↓
+    10
+    ↓
+    first .then()
+    ↓
+    return 20
+    ↓
+    new Promise
+    ↓
+    second .then()
+    ↓
+    20
+
+    This allows us to perform multiple asynchronous operations one after another.
+
+8. .catch() Can Handle Errors in .then()
+
+    An error can happen inside a .then() callback.
+
+    Promise.resolve("Hello")
+        .then((data) => {
+
+            console.log(data);
+
+            throw new Error("Something went wrong");
+
+        })
+        .catch((error) => {
+
+            console.log(error.message);
+
+        });
+
+    Output:
+
+    Hello
+    Something went wrong
+
+    The .catch() can catch errors that happen inside the Promise chain.
+
+9. .catch() Can Also Return a Value
+
+    .catch() also returns a Promise.
+
+    Therefore, it can be followed by .then().
+
+    Promise.reject("Server Error")
+        .catch((error) => {
+
+            console.log(error);
+
+            return "Default Data";
+
+        })
+        .then((data) => {
+
+            console.log(data);
+
+        });
+
+    Output:
+
+    Server Error
+    Default Data
+
+    Flow:
+
+    Rejected Promise
+        ↓
+    .catch()
+        ↓
+    "Default Data"
+        ↓
+    .then()
+        ↓
+    "Default Data"
+
+10. .finally()
+
+    Although .finally() is not a .then() or .catch() method, it is commonly used with them.
+
+    .finally() runs whether the Promise succeeds or fails.
+
+    promise
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        .finally(() => {
+            console.log("Operation finished");
+        });
+
+    Flow:
+
+    Success → .then() → .finally()
+    Failure → .catch() → .finally()
+
+    A common use is stopping a loading indicator after an API request finishes.
+
+11. .then() and .catch() with fetch()
+
+    This is one of the most common real-world uses.
+
+    fetch("https://example.com/users")
+        .then((response) => {
+
+            return response.json();
+
+        })
+        .then((data) => {
+
+            console.log(data);
+
+        })
+        .catch((error) => {
+
+            console.log("Error:", error);
+
+        });
+
+    Step-by-step
+
+    Step 1 — fetch()
+
+    fetch(url)
+
+    fetch() returns a Promise.
+
+    fetch()
+    ↓
+    Promise
+
+    Step 2 — First .then()
+
+    .then((response) => {
+        return response.json();
+    })
+
+    When the request succeeds, the response is passed to this .then().
+
+    Step 3 — response.json()
+
+    response.json()
+
+    also returns a Promise.
+
+    Step 4 — Second .then()
+
+    .then((data) => {
+        console.log(data);
+    })
+
+    This receives the actual parsed data.
+
+    Step 5 — .catch()
+
+    .catch((error) => {
+        console.log(error);
+    })
+
+    This handles errors/rejections in the Promise chain.
+
+    Complete flow:
+
+    fetch()
+    ↓
+    Promise
+    ↓
+    .then(response)
+    ↓
+    response.json()
+    ↓
+    Promise
+    ↓
+    .then(data)
+    ↓
+    Actual data
+    ↓
+    .catch(error) if an error occurs
+
+12. .then() and .catch() Do Not Create Asynchronous Operations
+
+        An important point:
+
+        .then() and .catch() do not make an operation asynchronous themselves.
+
+        They provide a way to handle the result of a Promise.
+
+        For example:
+
+        fetch(url)
+            .then(...)
+            .catch(...);
+
+        fetch() is the operation that returns the Promise.
+
+        .then() and .catch() tell JavaScript what to do with the Promise's result.
+
+13. .then() vs .catch()
+
+Method                                            Purpose
+
+.then() ...........................    Handles successful Promise result
+
+.catch() ..........................    Handles rejected Promise/error
+
+.finally() ........................    Runs after success or failure
+
+Easy way to remember:
+
+resolve() → .then()
+reject()  → .catch()
+always    → .finally()
+
+14. Complete Mental Model
+
+                    Promise
+                       |
+             ┌─────────┴─────────┐
+             ↓                   ↓
+          resolve              reject
+             ↓                   ↓
+          .then()             .catch()
+             ↓                   ↓
+       Handle success       Handle failure
+             |                   |
+             └─────────┬─────────┘
+                       ↓
+                   .finally()
+                       ↓
+                Always executes
+
+Because .then() returns a Promise, it can be chained:
+
+        Promise
+        ↓
+        .then()
+        ↓
+        New Promise
+        ↓
+        .then()
+        ↓
+        New Promise
+        ↓
+        .catch()
+
+⭐ Quick Notes
+
+.then()
+
+        Used to handle the successful result of a Promise.
+
+        promise.then((result) => {
+            console.log(result);
+        });
+
+.catch()
+
+        Used to handle errors or rejected Promises.
+
+        promise.catch((error) => {
+            console.log(error);
+        });
+
+.finally()
+
+        Runs whether the Promise succeeds or fails.
+
+        promise.finally(() => {
+            console.log("Finished");
+        });
+
+Most Important Relationship
+
+resolve(value) → .then(value)
+reject(error)  → .catch(error)
+always         → .finally()
+   -->
+
+   <!--  
+
+    let's understand async/await..........................
+### What is Async/Await?
+
+  async/await is a cleaner and easier way to work with Promises.It makes asynchronous code look more like normal, step-by-step code.
+
+1. async
+
+    When we put async before a function:
+
+    async function getData() {
+        return "Hello";
+    }
+
+    The function always returns a Promise.
+
+    It allows us to use await inside the function.
+
+    async → function returns a Promise
+
+2. await
+
+    await means:
+
+    Wait for the Promise to finish and give me its result.
+
+    async function getData() {
+        const result = await somePromise;
+        console.log(result);
+    }
+
+    await pauses the async function until the Promise settles.
+
+    It does not stop the entire JavaScript program.
+
+    await is normally used inside an async function.
+
+    Promise
+    ↓
+    await
+    ↓
+    wait for result
+    ↓
+    continue execution
+
+3. Error Handling
+
+    Use try...catch to handle errors:
+
+    async function getData() {
+        try {
+            const result = await somePromise;
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    try   → try the operation
+    catch → handle failure/error
+
+4. Example with Fetch
+
+    async function getUsers() {
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    getUsers();
+
+    Flow
+
+    fetch()
+    ↓
+    await response
+    ↓
+    response.json()
+    ↓
+    await data
+    ↓
+    use data
+
+5. Why use Async/Await?
+
+    Without async/await
+
+    getData()
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+    With async/await
+
+    async function getDataFromAPI() {
+        try {
+            const data = await getData();
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    Advantages
+
+   1. Cleaner and easier to read
+
+   2. Easier error handling with try...catch
+
+   3.Makes asynchronous code look more like synchronous code
+
+   4. Works with Promises
+
+   5.Very commonly used with APIs and fetch()
+
+    ⭐ Remember
+
+    async → makes a function return a Promise.
+
+    await → waits for a Promise's result inside an async function.
+
+    Promise
+    ↓
+    async/await
+    ↓
+    Cleaner asynchronous JavaScript
+
+
+    -->
